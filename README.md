@@ -1,8 +1,6 @@
 # EEG with MNE-Python
 
-A short self-directed project where I worked through two standard EEG analyses in MNE-Python. The first one turns raw EEG into averaged brain responses (ERPs) to sounds and images. The second one classifies imagined hand vs feet movement from EEG using CSP and LDA, and then checks how well that holds up on people the model has never seen.
-
-The goal wasn't a new result, I just wanted to get my hands on real neural data and understand the usual pipeline end to end.
+Two EEG analyses in MNE-Python on public datasets. The first one turns raw EEG into averaged brain responses (ERPs) to sounds and images. The second one classifies imagined hand vs feet movement from EEG using CSP and LDA, and then checks how well that holds up on people the model has never seen.
 
 | Notebook | What it does | Data |
 | --- | --- | --- |
@@ -107,7 +105,7 @@ Within subject means train and test on the same person. Leave one subject out me
 
 It drops a lot, which I expected since every head and electrode placement is a bit different, so each person is basically a new domain. What I didn't expect was how much subjects vary even within subject. 1, 7 and 8 are above 90% but 5 and 9 are below chance on their own data. Subjects 2 and 9 actually did better when trained on other people, probably because 45 trials of their own isn't enough and the pooled data gives the model more to learn from. The obvious next step would be Riemannian methods (`pyriemann`) or re-centering each subject's data, which are the usual fixes for this kind of shift.
 
-## What surprised me
+## Things I noticed
 
 - Adding ICA didn't change anything until I realised the EOG rejection was still looking at an uncleaned channel. And once it did work, the ERP peaks got smaller, so keeping more trials isn't free.
 - A fancier model (gradient boosting) did worse than chance on this. With so few trials the feature extraction matters way more than the classifier.
